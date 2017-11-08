@@ -12385,6 +12385,46 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 以下是审阅老师给出的建议代码，</span>
+<span class="c1">#“回答的很好，R^2分数低反而代表这个特征重要。你可以用下面的代码把所有特征的R^2分数都计算出来，这样可以看出哪些特征是能去掉的”</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">feature</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">regressor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">regressor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">feature</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fresh -0.252469807688
+Milk 0.365725292736
+Grocery 0.602801978878
+Frozen 0.253973446697
+Detergents_Paper 0.728655181254
+Delicatessen -11.6636871594
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12423,7 +12463,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 对于数据中的每一对特征构造一个散布矩阵</span>
@@ -13845,6 +13885,48 @@ iIA5TIZhGIZhGIZhGBEwh8kwDMMwDMMwDCMC5jAZhmEYhmEYhmFEwBwmwzAMwzAMwzCMCPw/mP3G
 >
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 审阅意见 Pearson&#39;s r</span>
+<span class="k">print</span> <span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                     Fresh      Milk   Grocery    Frozen  Detergents_Paper  \
+Fresh             1.000000  0.100510 -0.011854  0.345881         -0.101953   
+Milk              0.100510  1.000000  0.728335  0.123994          0.661816   
+Grocery          -0.011854  0.728335  1.000000 -0.040193          0.924641   
+Frozen            0.345881  0.123994 -0.040193  1.000000         -0.131525   
+Detergents_Paper -0.101953  0.661816  0.924641 -0.131525          1.000000   
+Delicatessen      0.244690  0.406368  0.205497  0.390947          0.069291   
+
+                  Delicatessen  
+Fresh                 0.244690  
+Milk                  0.406368  
+Grocery               0.205497  
+Frozen                0.390947  
+Detergents_Paper      0.069291  
+Delicatessen          1.000000  
+</pre>
+</div>
 </div>
 
 </div>
@@ -19517,6 +19599,8 @@ FCAYwBEREREREQUIBnBEREREREQBggEcERERERFRgGAAR0REREREFCAYwBEREREREQWI/wdCHJDH
 <ul>
 <li>K-Means聚类算法简单，容易理解。计算量不大，收敛快。可以很方便的进行分布式计算。</li>
 <li>高斯混合模型则更灵活，可以允许不同类型的特征。</li>
+<li>需要计算的参数不同：K-Means是簇心位置；GMM是各个高斯分布的参数</li>
+<li>对于每个点的归属上：K-Means是归类到离他最近的那个cluster；GMM是能使似然函数最大的cluster。</li>
 <li>我选K-Means</li>
 </ul>
 
@@ -20685,6 +20769,12 @@ point 0 和point 2 最能代表的是Segment 1；point 1最能代表它的是Seg
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答：</strong>
 A/B tests对每个客户的影响不一样。如果批发商将他的派送服务从每周5天变为每周3天，那么那些对配送频率依赖高的客户就会抱怨，比如餐馆每天都需要新鲜食材。</p>
+<ul>
+<li>怎样才能够确定它对于哪个类型的客户影响最大？<ul>
+<li>可以依据之前的聚类结果对抱怨的客户分类，从而得到哪一类客户抱怨最多，就可以确定对他们的影响大。</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -21604,6 +21694,7 @@ AAAAAPgSyRAAAAAAXyIZAgAAAOBL/x/ZBSu5gchanAAAAABJRU5ErkJggg==
 <li>我的聚类结果与内在的旅馆/餐馆/咖啡店和零售商的分布相比并不是很好。</li>
 <li>Dimension 1大于2的都被划分为'旅馆/饭店/咖啡馆'；小于3的都划分为'零售商'。</li>
 </ul>
+<p>评阅：通过跟实际标签的对比也是一种测试我们聚类结果的方法。你也会发现两类数据的并没有严格的分开，甚至有些交叉，证明没有哪个簇能够刚好划分成'零售商'或者是'旅馆/饭店/咖啡馆'，有些商家因为规模和业务不同，不能简单地按照采购金额来区分。</p>
 
 </div>
 </div>
